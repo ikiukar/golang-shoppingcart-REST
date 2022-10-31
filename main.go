@@ -47,42 +47,21 @@ func main() {
 	prod.Post("/editproduct/:id", prodController.EditPostedProduct)
 	prod.Get("/deleteproduct/:id", prodController.DeleteProduct)
 
-	//cart.Get("/deletecart/:id", cartController.DeleteCart)
-
 	user := app.Group("/users")
 	user.Get("/", userController.IndexUser)
 	user.Get("/create", userController.AddUser)
 	user.Post("/create", userController.AddPostedUser)
 
-	///
 	user.Get("/userdetail", userController.GetDetailUser)
 	user.Get("/detail/:id", userController.GetDetailUser2)
-	///
-	/*
-		user.Get("/editproduct/:id", userController.EditProduct)
-		user.Post("/editproduct/:id", userController.EditPostedProduct)
-		user.Get("/deleteproduct/:id", userController.DeleteProduct)
-	*/
 
 	app.Get("/login", authController.Login)
 	app.Post("/login", authController.LoginPosted)
 	app.Get("/logout", authController.Logout)
-	/////
+
 	app.Get("/register", userController.AddUser)
 	app.Post("/register", userController.AddPostedUser)
-	/////
-	//app.Get("/profile",authController.Profile)
 
-	// app.Use("/profile", func(c *fiber.Ctx) error {
-	// 	sess,_ := store.Get(c)
-	// 	val := sess.Get("username")
-	// 	if val != nil {
-	// 		return c.Next()
-	// 	}
-
-	// 	return c.Redirect("/login")
-
-	// })
 	app.Get("/profile", func(c *fiber.Ctx) error {
 		sess, _ := store.Get(c)
 		val := sess.Get("username")
